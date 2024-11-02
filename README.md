@@ -1,18 +1,15 @@
 # BookManagement
 
-Server >> Storing Book Data
-       >> User Register
-       >> Subscriber
-       
+Server >> Storing Book Data >> User Register >> Subscriber
 
 This is a book record management API Server/Backend for library system or management of recors or mauals or books.
 
 Fine System :
 User : 01/11/2024 - 01/02/2025
 
-* 1day fine - 50 rs
-02/02/2025 => 50rs fine.
-05/02/2025 => (4* 50/-) = 200rs fine.
+- 1day fine - 50 rs
+  02/02/2025 => 50rs fine.
+  05/02/2025 => (4\* 50/-) = 200rs fine.
 
 Subscriptions:
 
@@ -26,45 +23,40 @@ If the subscription type is standard and if the subsciption date is 01/11/2024
 Within subscription date >> if we miss the renwal >> 50/- day
 subscription date is also been missed >> and also missd the renewal >> 100 + 50/- day.
 
+> > Book1
+> > Basic
+> > let be the book purchased on 01/11/2024.
+> > 02/11/2024 -> borrowes a book from library.
+> > book1 renewal date is on 21/11/2024.
+> > 23/11/2024 -> we need to pay a fine of 50/- \* 2 = 100 /-
 
->> Book1
->> Basic
->> let be the book purchased on 01/11/2024.
->> 02/11/2024 -> borrowes a book from library.
->> book1 renewal date is on 21/11/2024.
->> 23/11/2024 -> we need to pay a fine of 50/- * 2 = 100 /-
-
->> Book1
->> Basic
->> let be the book purchased on 01/11/2024.
->> 02/11/2024 -> borrowes a book from library.
->> book1 renewal date is on 21/11/2024.
->> 23/05/2025 -> we need to pay a fine of 100 + (no of days * 50) /-
+> > Book1
+> > Basic
+> > let be the book purchased on 01/11/2024.
+> > 02/11/2024 -> borrowes a book from library.
+> > book1 renewal date is on 21/11/2024.
+> > 23/05/2025 -> we need to pay a fine of 100 + (no of days \* 50) /-
 
 missed by renewal date >> 50/-
 missed by subscription date >> 100/-
 missed by renewal & subscription >> 150/-
 
-# Routes and  Endpoints - APIS
+# Routes and Endpoints - APIS
 
 ## / users
 
 POST : Create a new user.
-GET  : Get all the user info here.(All user).
+GET : Get all the user info here.(All user).
 
+## /users/{id}
 
-## /users/{id} 
-GET    : Get a user info by their ID (single user).
+GET : Get a user info by their ID (single user).
 UPDATE : Update a user by their ID.
-DELETE : Delete user by their ID (check if he/she still have an issued book) && (is there any fine to paid).
+DELETE : Delete user by their ID (check if he/she still have an ssued book) && (is there any fine to paid).
 
 ## /users/{id}/subscription-details/{id}
 
-GET : Get user subscription details
-    >> Date of subscription.
-    >> Valid till.
-    >> Is there any fine.
-
+GET : Get user subscription details >> Date of subscription. >> Valid till. >> Is there any fine.
 
 ## /books
 
@@ -80,9 +72,33 @@ PUT: Update a book by its ID.
 
 GET : Get all issued books with their fine.
 
-
 ## npm init
 
-##npm i nodemon --save-dev (developer dependency). 
+##npm i nodemon --save-dev (developer dependency).
 
+#Updating user by their ID
 
+BODY:-
+
+{
+"data" : {
+"name" : "Mahesh",
+"surname" : "Koppisetti"
+}
+}
+
+...each :
+"name": "Jane",
+"surname": "Doe",
+"email": "user@email.com",
+"subscriptionType": "Premium",
+"subscriptionDate": "01/01/2022"
+
+...data:
+"data" : {
+"name" : "Mahesh",
+"surname" : "Koppisetti"
+}
+
+spread operator updates existing value with new value (exisiting value,new value);
+...each,...data works like the values is each is updated by values in data.
