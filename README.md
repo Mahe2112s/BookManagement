@@ -74,9 +74,9 @@ GET : Get all issued books with their fine.
 
 ## npm init
 
-##npm i nodemon --save-dev (developer dependency).
+npm i nodemon --save-dev (developer dependency).
 
-#Updating user by their ID
+# Updating user by their ID
 
 BODY:-
 
@@ -102,3 +102,18 @@ BODY:-
 
 spread operator updates existing value with new value (exisiting value,new value);
 ...each,...data works like the values is each is updated by values in data.
+
+## Router Folder
+
+In routes folder we user two different files 1.books.json 2.users.json
+Due to complexity of writing entire users routes and books routes, we segregated into 2 routes for understability.
+
+The default code for importing routes is
+
+const express = require("express");
+
+const router = express.Router();
+
+/_ CODE _/
+
+module.exports = router; --> return statement
