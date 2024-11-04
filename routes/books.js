@@ -19,45 +19,6 @@ router.get("/", (req, res) => {
 });
 
 /**
- * Route : /books/issued
- * Method : GET
- * Description : GET all issued books
- * Access : Public
- * Parameter : id
- */
-
-router.get("/issued", (req, res) => {
-  const user_IssuedBook = users.filter((each) => {
-    if (each.issuedBook) return each;
-  });
-
-  const IssuedBooks = [];
-
-  user_IssuedBook.forEach((each) => {
-    const book = books.find((e) => e.id === each.issuedBook);
-
-    book.id = each.issuedBook;
-    book.issuedto = each.name;
-    book.issedDate = each.issuedDate;
-    book.returnDate = each.returnDate;
-
-    IssuedBooks.push(book);
-    console.log(IssuedBooks);
-  });
-  if (IssuedBooks.length === 0) {
-    return res.status(404).json({
-      success: false,
-      message: "Book is not issued yet",
-    });
-  }
-  return res.status(200).json({
-    success: true,
-    message: "User With Issued Books",
-    data: IssuedBooks,
-  });
-});
-
-/**
  * Route : /books/:id
  * Method : GET
  * Description : Get book by it ID
@@ -85,10 +46,12 @@ router.get("/:id", (req, res) => {
 /**
  * Route : /users/
  * Method : POST
- * Description : Creating a new book
+ * Description : Creating/Adding a new book
  * Access : Public
  * Parameter : None
+ * Data : id ,name,author,genre,price,publisher
  */
+/*
 router.post("/", (req, res) => {
   const { id, name, author, genre, price, publisher } = req.body;
 
@@ -113,7 +76,29 @@ router.post("/", (req, res) => {
     data: books,
   });
 });
-
+*/
+router.post("/", (req, res) => {
+  const { data } = req.body;
+  if (!data) {
+    return res.status(404).json({
+      success: false,
+      message: "There is no data to add a book!",
+    });
+  }
+  const book = books.find((each) => each.id === data.id);
+  if (book) {
+    return res.status(404).json({
+      success: false,
+      message: "Id already exists",
+    });
+  }
+  const allBooks = { ...books, data };
+  return res.status(201).json({
+    success: true,
+    message: "Book added succesfully",
+    data: allBooks,
+  });
+});
 /**
  * Route : /books/:id
  * Method : PUT
@@ -172,6 +157,45 @@ router.delete("/:id", (req, res) => {
     success: true,
     message: "Book deleted successfully",
     data: books,
+  });
+});
+
+/**
+ * Route : /books/issued
+ * Method : GET
+ * Description : GET all issued books
+ * Access : Public
+ * Parameter : id
+ */
+
+router.get("/issued/by-user", (req, res) => {
+  const user_IssuedBook = users.filter((each) => {
+    if (each.issuedBook) return each;
+  });
+
+  const IssuedBooks = [];
+
+  user_IssuedBook.forEach((each) => {
+    const book = books.find((e) => e.id === each.issuedBook);
+
+    book.id = each.issuedBook;
+    book.issuedto = each.name;
+    book.issedDate = each.issuedDate;
+    book.returnDate = each.returnDate;
+
+    IssuedBooks.push(book);
+    console.log(IssuedBooks);
+  });
+  if (IssuedBooks.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "Book is not issued yet",
+    });
+  }
+  return res.status(200).json({
+    success: true,
+    message: "User With Issued Books",
+    data: IssuedBooks,
   });
 });
 
